@@ -18,6 +18,8 @@ while True:
                 mario.move_left = True
             if event.key == pygame.K_RIGHT:
                 mario.move_right = True
+            if event.key == pygame.K_SPACE and mario.access_to_jump:
+                mario.jump = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 mario.move_left = False
