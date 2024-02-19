@@ -1,31 +1,29 @@
 import pygame
+from mario import Mario
+from screen import Screen
 import sys
-
-
-
-piksel = 16;
 
 pygame.init()
 
-screen = pygame.display.set_mode((32*piksel, 32*piksel))
-
-def draw_mario(x,y):
-    r = pygame.Rect(x * piksel, (y-2) * piksel, piksel, 3*piksel)
-    pygame.draw.rect(screen, (255, 0, 0), r, 0)
-
-mario_x = 0
-mario_y = 31
+screen = Screen()
+mario = Mario()
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                mario_x -= 1
-            elif event.key == pygame.K_RIGHT:
-                mario_x += 1
-    screen.fill((0, 0, 0))
-    draw_mario(mario_x, mario_y)
+                mario.move_left = True
+            if event.key == pygame.K_RIGHT:
+                mario.move_right = True
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                mario.move_left = False
+            if event.key == pygame.K_RIGHT:
+                mario.move_right = False
+    mario.update()
+    screen.screen.fill((0, 0, 0))
+    screen.draw_mario(mario.x_cordinat, mario.y_cordinat)
     pygame.display.flip()
